@@ -15,7 +15,7 @@ namespace Rolling {
         public float MoveForce = 1f;
         public bool CanJump = true;
         public float JumpForce = 1f;
-        public float MaxOffsetToJump = 0.3f;
+        public float GroundedOffset = 0.3f;
         public bool JumpAutoOpposesGravity = true;
 
         // EVENT HANDLERS
@@ -25,7 +25,7 @@ namespace Rolling {
         }
         private void Update() {
             // Get player input
-            float rot = RollingInput.RotateCW;
+            float rot = RollingInput.Roll;
             bool jump = RollingInput.JumpStart;
 
             // Do the rotation
@@ -33,23 +33,37 @@ namespace Rolling {
             float moveMag = rot * MoveForce;
             _rigidbody.AddForce(moveMag * moveDir);
 
-            // Do jump
-            if (jump && _grounded) {
-                jump = false;
-                float g = Physics.gravity.magnitude;
-                Vector2 jumpDir = -Physics2D.gravity / g;
-                if (JumpAutoOpposesGravity)
-                    _rigidbody.AddForce(-Physics2D.gravity);
-                _rigidbody.AddForce(JumpForce * jumpDir, ForceMode2D.Impulse);
-            }
+            // Apply jump forces
+            if (jump)
+                doJump();
         }
         private void FixedUpdate() {
             // Check if this object is grounded
-            int numHits = Physics2D.RaycastNonAlloc(transform.position, Physics2D.gravity, _groundHits, _circle.radius + MaxOffsetToJump);
+            int numHits = Physics2D.RaycastNonAlloc(transform.position, Physics2D.gravity, _groundHits, _circle.radius + GroundedOffset);
             _grounded = (numHits > 1);
         }
         private void OnDrawGizmos() {
-            Gizmos.DrawLine(transform.position, transform.position + Physics.gravity.normalized * (_circle.radius + MaxOffsetToJump));
+            if (_circle != null) {
+                Vector2 pos = transform.position;
+                Vector2 gravityOffset = Physics2D.gravity.normalized * (_circle.radius + GroundedOffset);
+                Gizmos.DrawLine(pos, pos + gravityOffset);
+            }
+        }
+
+        // HELPER FUNCTIONS
+        private void doJump() {
+            // If the player isn't grounded
+            if (!_grounded)
+                return;
+
+            // Apply a force to oppose gravity, if requested
+            if (JumpAutoOpposesGravity)
+                _rigidbody.AddForce(-Physics2D.gravity);
+
+            // Apply the jump force
+            float g = Physics2D.gravity.magnitude;
+            Vector2 jumpDir = -Physics2D.gravity / g;
+            _rigidbody.AddForce(JumpForce * jumpDir, ForceMode2D.Impulse);
         }
     }
 

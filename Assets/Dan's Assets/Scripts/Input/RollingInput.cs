@@ -5,7 +5,7 @@ namespace Rolling {
 
     class RollingInput {
         // API INTERFACE
-        public static float RotateCW {
+        public static float Roll {
             get {
                 float btnInput = Input.GetAxis("Horizontal");
                 float mobileInput = AvgAcceleration.x;
@@ -13,6 +13,7 @@ namespace Rolling {
                 return -rot;
             }
         }
+
         public static bool JumpStart {
             get {
                 bool btnInput = Input.GetButtonDown("Jump");
