@@ -1,45 +1,74 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+using Danware.Unity.Input;
+
 namespace Rolling {
 
     public class GravityTester : MonoBehaviour {
         // HIDDEN FIELDS
-        private LineRenderer _line;
-        private float _lineWidth = 0.1f;
+        private StartStopInputArray Input = new StartStopInputArray(
+            KeyCode.Keypad4,    // 0 - left
+            KeyCode.Keypad7,    // 1 - leftup
+            KeyCode.Keypad8,    // 2 - up
+            KeyCode.Keypad9,    // 3 - upright
+            KeyCode.Keypad6,    // 4 - right
+            KeyCode.Keypad3,    // 5 - rightdown
+            KeyCode.Keypad2,    // 6 - down
+            KeyCode.Keypad1,    // 7 - downleft
+            KeyCode.Keypad5     // 8 - zero-G
+        );   
 
         // INSPECTOR FIELDS
-        public Texture2D CursorImg;
-        public Text InfoTxt;
-        
-        // EVENT HANDLERS
-        private void Awake() {
-            // Set cursor
-            Cursor.SetCursor(CursorImg, new Vector2(16f, 16f), CursorMode.Auto);
+        public WorldRotater MainCameraRotater;
+        public float Magnitude = 9.81f;
+        public GravityShifter Mediator;
 
-            // Set up the gravity line renderer
-            _line = gameObject.AddComponent<LineRenderer>();
-            _line.SetWidth(_lineWidth, _lineWidth);
-            _line.SetColors(Color.yellow, Color.red);
-            _line.material = new Material(Shader.Find("Particles/Additive"));
-        }
+        // EVENT HANDLERS
         private void Update() {
             // Get player input
-            bool mouseDown = Input.GetMouseButton(0);
+            bool gravityChanged = Input.AnyStarted;
 
-            // Render the gravity line
-            Vector2 centerPixels = new Vector2(Screen.width / 2f, Screen.height / 2f);
-            Vector2 centerPt = Camera.main.ScreenToWorldPoint(centerPixels);
-            Vector2 screenPt = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            _line.SetPosition(0, centerPt);
-            _line.SetPosition(1, screenPt);
-
-            // If the mouse is being held down, then adjust gravity
-            if (mouseDown) {
-                Vector2 newGravity = screenPt - centerPt;
-                Physics2D.gravity = newGravity;
-                InfoTxt.text = string.Format("Gravity:  <{0}, {1}>", newGravity.x, newGravity.y);
+            // If a direction button was pressed then adjust gravity
+            if (gravityChanged) {
+                if (Mediator != null)
+                    Mediator.SetGravity(newGravity());
             }
+        }
+
+        // HELPERS
+        private Vector2 newGravity() {
+            // Return a zero-vector if gravity has been turned off
+            bool gravityOff = (Input.Started[8]);
+            if (gravityOff)
+                return Vector2.zero;
+
+            // Otherwise, if the MainCamera is still rotating, then just return the current gravity vector;
+            if (MainCameraRotater.IsRotating)
+                return Physics2D.gravity;
+            bool[] key = Input.Started;
+            float diag = Mathf.Sqrt(2f) / 2f;
+
+            // Get the x-component
+            float gx = (key[0] ? -1    : 0) +
+                       (key[1] ? -diag : 0) +
+                       (key[3] ?  diag : 0) +
+                       (key[4] ?  1    : 0) +
+                       (key[5] ?  diag : 0) +
+                       (key[7] ? -diag : 0);
+
+            // Get the y-component
+            float gy = (key[1] ?  diag : 0) +
+                       (key[2] ?  1    : 0) +
+                       (key[3] ?  diag : 0) +
+                       (key[5] ? -diag : 0) +
+                       (key[6] ? -1    : 0) +
+                       (key[7] ? -diag : 0);
+
+            // Return the unit vector with these components, in camera space
+            Vector2 newGravity = new Vector2(gx, gy);
+            Transform trans = MainCameraRotater.MainCamera.transform;
+            return Magnitude * trans.TransformDirection(newGravity);
         }
     }
 

@@ -31,8 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Danware.Unity3D">
-      <HintPath>..\..\Dangine\Unity3D\bin\Debug\Danware.Unity3D.dll</HintPath>
+    <Reference Include="Danware.Unity">
+      <HintPath>..\..\Dangine\Unity\bin\Debug\Danware.Unity.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,10 +45,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GravityShifter.cs" />
     <Compile Include="GravityTester.cs" />
+    <Compile Include="Loader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RollingInput.cs" />
     <Compile Include="RollMover.cs" />
+    <Compile Include="WorldRotater.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
