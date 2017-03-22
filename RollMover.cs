@@ -13,16 +13,14 @@ namespace Rolling {
         RaycastHit2D[] _groundHits = new RaycastHit2D[2];
 
         // INSPECTOR FIELDS
+        public StartStopInput JumpInput;
+        public ValueInput RollInput;
         public float MoveSpeed = 2f;    // Units/sec
         public float MoveForce = 5f;    // Units/sec
         public bool CanJump = true;
         public float JumpForce = 5f;
         public float GroundedOffset = 0.3f;
         public bool JumpAutoOpposesGravity = true;
-
-        // API INTERFACE
-        public static StartStopInput JumpInput { get; set; }
-        public static ValueInput RollInput { get; set; }
 
         // EVENT HANDLERS
         private void Awake() {

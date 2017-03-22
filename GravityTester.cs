@@ -1,25 +1,12 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 using Danware.Unity.Input;
 
 namespace Rolling {
 
     public class GravityTester : MonoBehaviour {
-        // HIDDEN FIELDS
-        private StartStopInputArray Input = new StartStopInputArray(
-            KeyCode.Keypad4,    // 0 - left
-            KeyCode.Keypad7,    // 1 - leftup
-            KeyCode.Keypad8,    // 2 - up
-            KeyCode.Keypad9,    // 3 - upright
-            KeyCode.Keypad6,    // 4 - right
-            KeyCode.Keypad3,    // 5 - rightdown
-            KeyCode.Keypad2,    // 6 - down
-            KeyCode.Keypad1,    // 7 - downleft
-            KeyCode.Keypad5     // 8 - zero-G
-        );   
-
         // INSPECTOR FIELDS
+        public StartStopInputArray Input;
         public WorldRotater MainCameraRotater;
         public float Magnitude = 9.81f;
         public GravityShifter Mediator;

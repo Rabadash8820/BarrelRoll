@@ -7,8 +7,8 @@
     <ProjectGuid>{3289D8C7-10D4-4BEA-BB57-6F9C258BAE0D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rolling</RootNamespace>
-    <AssemblyName>Rolling</AssemblyName>
+    <RootNamespace>BarrelRoll</RootNamespace>
+    <AssemblyName>BarrelRoll</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
@@ -31,9 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Danware.Unity">
-      <HintPath>..\..\Dangine\Unity\bin\Debug\Danware.Unity.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -41,7 +38,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="UnityEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\Standalone\UnityEngine.UI.dll</HintPath>
+      <HintPath>C:\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\Standalone\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -55,9 +52,19 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Danware.Unity\Danware.Unity.Input\Danware.Unity.Input.csproj">
+      <Project>{b4a989c3-c0eb-4145-a1f9-293ebc23fbce}</Project>
+      <Name>Danware.Unity.Input</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Danware.Unity\Danware.Unity\Danware.Unity.csproj">
+      <Project>{567fe3bc-52ee-4bf6-92be-a356f8f08dbe}</Project>
+      <Name>Danware.Unity</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>$(SolutionDir)copyToUnityProjects.cmd $(TargetDir)$(TargetName) $(ProjectDir)COPY_LOCATIONS\COPY_LOCATIONS.txt</PostBuildEvent>
+    <PostBuildEvent>$(ProjectDir)..\..\Scripts\CopyFilesBuildScript\copyFiles.cmd $(TargetDir) $(ProjectDir)COPY_TARGETS\</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
