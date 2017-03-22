@@ -29,8 +29,8 @@ namespace Rolling {
         }
         private void Update() {
             // Get player input
-            float roll = RollInput.Value;
-            bool jump = JumpInput.Started;
+            float roll = RollInput?.Value ?? 0f;
+            bool jump = JumpInput?.Started ?? false;
 
             // Do the rotation
             Vector2 moveDir = new Vector2(Physics2D.gravity.y, -Physics2D.gravity.x).normalized;

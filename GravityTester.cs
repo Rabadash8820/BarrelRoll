@@ -5,57 +5,82 @@ using Danware.Unity.Input;
 namespace Rolling {
 
     public class GravityTester : MonoBehaviour {
+
+        private static float DIAGONAL = Mathf.Sqrt(2f) / 2f;
+
         // INSPECTOR FIELDS
-        public StartStopInputArray Input;
         public WorldRotater MainCameraRotater;
         public float Magnitude = 9.81f;
-        public GravityShifter Mediator;
+        public GravityShifter GravityShifter;
+
+        [Header("Gravity Shift Inputs")]
+        public StartStopInput UpLeftInput;
+        public StartStopInput UpInput;
+        public StartStopInput UpRightInput;
+        public StartStopInput LeftInput;
+        public StartStopInput RightInput;
+        public StartStopInput DownLeftInput;
+        public StartStopInput DownInput;
+        public StartStopInput DownRightInput;
+        public StartStopInput ZeroGInput;
 
         // EVENT HANDLERS
+        private void Awake() {
+            Debug.Assert(MainCameraRotater != null, $"A {nameof(GravityTester)} must be associated with a {nameof(WorldRotater)}");
+            if (GravityShifter == null)
+                Debug.LogWarning($"A {nameof(GravityTester)} must be associated with a {nameof(GravityShifter)}");
+        }
         private void Update() {
             // Get player input
-            bool gravityChanged = Input.AnyStarted;
+            bool inputGiven = (UpLeftInput?.Started ?? false) ||
+                              (UpInput?.Started ?? false) ||
+                              (UpRightInput?.Started ?? false) ||
+                              (LeftInput?.Started ?? false) ||
+                              (RightInput?.Started ?? false) ||
+                              (DownLeftInput?.Started ?? false) ||
+                              (DownInput?.Started ?? false) ||
+                              (DownRightInput?.Started ?? false) ||
+                              (ZeroGInput?.Started ?? false);
 
             // If a direction button was pressed then adjust gravity
-            if (gravityChanged) {
-                if (Mediator != null)
-                    Mediator.SetGravity(newGravity());
+            if (inputGiven) {
+                Vector2 newG = newGravity();
+                if (newG != Physics2D.gravity)
+                    GravityShifter?.SetGravity(newG);
             }
         }
 
         // HELPERS
         private Vector2 newGravity() {
             // Return a zero-vector if gravity has been turned off
-            bool gravityOff = (Input.Started[8]);
+            bool gravityOff = (ZeroGInput?.Started ?? false);
             if (gravityOff)
                 return Vector2.zero;
 
             // Otherwise, if the MainCamera is still rotating, then just return the current gravity vector;
             if (MainCameraRotater.IsRotating)
                 return Physics2D.gravity;
-            bool[] key = Input.Started;
-            float diag = Mathf.Sqrt(2f) / 2f;
 
             // Get the x-component
-            float gx = (key[0] ? -1    : 0) +
-                       (key[1] ? -diag : 0) +
-                       (key[3] ?  diag : 0) +
-                       (key[4] ?  1    : 0) +
-                       (key[5] ?  diag : 0) +
-                       (key[7] ? -diag : 0);
+            float gx = ((UpLeftInput?.Started ?? false) ? -DIAGONAL : 0) +
+                       ((UpRightInput?.Started ?? false) ? DIAGONAL : 0) +
+                       ((LeftInput?.Started ?? false) ? -1 : 0) +
+                       ((RightInput?.Started ?? false) ? 1 : 0) +
+                       ((DownLeftInput?.Started ?? false) ? -DIAGONAL : 0) +
+                       ((DownRightInput?.Started ?? false) ? DIAGONAL : 0);
 
             // Get the y-component
-            float gy = (key[1] ?  diag : 0) +
-                       (key[2] ?  1    : 0) +
-                       (key[3] ?  diag : 0) +
-                       (key[5] ? -diag : 0) +
-                       (key[6] ? -1    : 0) +
-                       (key[7] ? -diag : 0);
+            float gy = ((UpLeftInput?.Started ?? false) ? DIAGONAL : 0) +
+                       ((UpInput?.Started ?? false) ? 1 : 0) +
+                       ((UpRightInput?.Started ?? false) ? DIAGONAL : 0) +
+                       ((DownLeftInput?.Started ?? false) ? -DIAGONAL : 0) +
+                       ((DownInput?.Started ?? false) ? -1 : 0) +
+                       ((DownRightInput?.Started ?? false) ? -DIAGONAL : 0);
 
             // Return the unit vector with these components, in camera space
-            Vector2 newGravity = new Vector2(gx, gy);
-            Transform trans = MainCameraRotater.MainCamera.transform;
-            return Magnitude * trans.TransformDirection(newGravity);
+            Vector2 localDir = new Vector2(gx, gy);
+            Vector2 worldDir = MainCameraRotater.MainCamera.transform.TransformDirection(localDir);
+            return Magnitude * worldDir;
         }
     }
 

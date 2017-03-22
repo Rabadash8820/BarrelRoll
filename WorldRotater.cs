@@ -4,46 +4,40 @@ namespace Rolling {
 
     public class WorldRotater : MonoBehaviour {
         // HIDDEN FIELDS
-        private Vector2 _targetDir;
+        private Vector2 _targetDir = Vector2.zero;
 
         // INSPECTOR FIELDS
         public Transform MainCamera;
-        public GravityShifter Mediator;
+        public GravityShifter GravityShifter;
         [Tooltip("Camera will rotate smoothly at this angular speed (degrees/second).")]
-        public float Speed = 45f;
+        public float Speed = 90f;
 
         // EVENT HANDLERS
         private void Awake() {
-            Debug.Assert(Mediator != null, $"{nameof(WorldRotater)} {name} must be associated with a GravityMediator!");
+            Debug.Assert(GravityShifter != null, $"{nameof(WorldRotater)} {name} must be associated with a {nameof(GravityShifter)}!");
 
             // Rotate towards the opposite direction of gravity, when that direction changes
-            Mediator.Shifted += (sender, e) => {
-                StartRotating(-e.NewVector);
+            GravityShifter.Shifted += (sender, e) => {
+                Vector2 target = -e.NewVector;
+                if (MainCamera != null && target != Vector2.zero)
+                    _targetDir = target;
             };
         }
         private void Update() {
             // Reset when the target rotation is reached
-            Quaternion currRot = MainCamera.transform.rotation;
-            if (currRot == TargetRotation)
+            Transform trans = MainCamera.transform;
+            Quaternion targetRot = Quaternion.LookRotation(Vector3.forward, _targetDir);
+            if (trans.rotation == targetRot)
                 _targetDir = Vector2.zero;
 
             // Slerp the Transform's rotation towards the target
-            if (_targetDir != Vector2.zero) {
-                Quaternion newRot = Quaternion.RotateTowards(currRot, TargetRotation, Speed * Time.deltaTime);
-                MainCamera.transform.rotation = newRot;
-            }
+            if (_targetDir != Vector2.zero)
+                trans.rotation = Quaternion.RotateTowards(trans.rotation, targetRot, Speed * Time.deltaTime);
         }
 
         // API INTERFACE
         public bool IsRotating => _targetDir != Vector2.zero;
-        public void StartRotating(Vector2 target) {
-            if (MainCamera != null && target != Vector2.zero)
-                _targetDir = target;
-        }
 
-        // HELPERS
-        private Quaternion TargetRotation =>
-            (_targetDir != Vector2.zero) ? Quaternion.LookRotation(Vector3.forward,_targetDir) : Quaternion.identity;
     }
 
 }
