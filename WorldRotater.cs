@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Rolling {
+namespace BarrelRoll {
 
     public class WorldRotater : MonoBehaviour {
         // HIDDEN FIELDS

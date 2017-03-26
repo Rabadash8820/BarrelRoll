@@ -2,7 +2,7 @@
 
 using Danware.Unity.Input;
 
-namespace Rolling {
+namespace BarrelRoll {
 
     [RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
     public class RollMover : MonoBehaviour {

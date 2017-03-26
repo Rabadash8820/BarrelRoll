@@ -4,7 +4,7 @@ using Danware.Unity.Input;
 
 using System.Linq;
 
-namespace Rolling {
+namespace BarrelRoll {
 
     public class Loader : MonoBehaviour {
 

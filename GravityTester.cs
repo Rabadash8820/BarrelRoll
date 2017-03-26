@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
+using UnityEngine.Assertions;
 
 using Danware.Unity.Input;
 
-namespace Rolling {
+namespace BarrelRoll {
 
     public class GravityTester : MonoBehaviour {
 
         private static float DIAGONAL = Mathf.Sqrt(2f) / 2f;
 
         // INSPECTOR FIELDS
-        public WorldRotater MainCameraRotater;
+        public WorldRotater WorldRotater;
         public float Magnitude = 9.81f;
         public GravityShifter GravityShifter;
 
@@ -26,9 +27,8 @@ namespace Rolling {
 
         // EVENT HANDLERS
         private void Awake() {
-            Debug.Assert(MainCameraRotater != null, $"A {nameof(GravityTester)} must be associated with a {nameof(WorldRotater)}");
-            if (GravityShifter == null)
-                Debug.LogWarning($"A {nameof(GravityTester)} must be associated with a {nameof(GravityShifter)}");
+            Assert.IsNotNull(WorldRotater, $"A {nameof(GravityTester)} must be associated with a {nameof(BarrelRoll.WorldRotater)}");
+            Assert.IsNotNull(GravityShifter, $"A {nameof(GravityTester)} must be associated with a {nameof(BarrelRoll.GravityShifter)}");
         }
         private void Update() {
             // Get player input
@@ -42,12 +42,14 @@ namespace Rolling {
                               (DownRightInput?.Started ?? false) ||
                               (ZeroGInput?.Started ?? false);
 
-            // If a direction button was pressed then adjust gravity
-            if (inputGiven) {
-                Vector2 newG = newGravity();
-                if (newG != Physics2D.gravity)
-                    GravityShifter?.SetGravity(newG);
-            }
+            // If no input was given then just return
+            if (!inputGiven)
+                return;
+
+            // Otherwise, adjust gravity, playing any provided effects first
+            Vector2 newG = newGravity();
+            if (newG != Physics2D.gravity)
+                GravityShifter.StartGravityEffects(newG);
         }
 
         // HELPERS
@@ -58,7 +60,7 @@ namespace Rolling {
                 return Vector2.zero;
 
             // Otherwise, if the MainCamera is still rotating, then just return the current gravity vector;
-            if (MainCameraRotater.IsRotating)
+            if (WorldRotater.IsRotating)
                 return Physics2D.gravity;
 
             // Get the x-component
@@ -79,7 +81,7 @@ namespace Rolling {
 
             // Return the unit vector with these components, in camera space
             Vector2 localDir = new Vector2(gx, gy);
-            Vector2 worldDir = MainCameraRotater.MainCamera.transform.TransformDirection(localDir);
+            Vector2 worldDir = WorldRotater.MainCamera.transform.TransformDirection(localDir);
             return Magnitude * worldDir;
         }
     }
