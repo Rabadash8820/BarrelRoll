@@ -1,0 +1,7 @@
+<Project>
+
+  <PropertyGroup>
+    <WithUnityUtil Condition="'$(Configuration)'=='DebugWithUnityUtil' Or '$(Configuration)'=='ReleaseWithUnityUtil'">true</WithUnityUtil>
+  </PropertyGroup>
+
+</Project>

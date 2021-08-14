@@ -1,0 +1,88 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{609D2A32-555A-42AE-823C-4492171EDCAC}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		Directory.Build.props = Directory.Build.props
+		..\README.md = ..\README.md
+		Unity.props = Unity.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnityUtil", "UnityUtil", "{D563550C-F770-4CFA-8643-949FA5FE289D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityUtil", "..\..\UnityUtil\src\UnityUtil\UnityUtil.csproj", "{1F340C2C-7CB0-4AC8-AED3-10F88456F4B4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityUtil.Editor", "..\..\UnityUtil\src\UnityUtil.Editor\UnityUtil.Editor.csproj", "{78BC3B4F-F6FE-4FB0-9D4F-A8180B0D7787}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{671B541C-3402-450F-9338-D049656221A2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityUtil.Test.PlayMode", "..\..\UnityUtil\src\Test\UnityUtil.Test.PlayMode\UnityUtil.Test.PlayMode.csproj", "{36A857AA-3537-4979-A8F8-8CDC52C79C0F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnityUtil.Test.EditMode", "..\..\UnityUtil\src\Test\UnityUtil.Test.EditMode\UnityUtil.Test.EditMode.csproj", "{447B17AC-EF41-4A6F-AA55-B8C2DA1447A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BarrelRoll", "BarrelRoll", "{BD1324B7-AA34-43AF-90BA-748E0E8E1273}"
+	ProjectSection(SolutionItems) = preProject
+		BarrelRoll\BarrelRoll.props = BarrelRoll\BarrelRoll.props
+		BarrelRoll\Directory.Build.props = BarrelRoll\Directory.Build.props
+		BarrelRoll\Directory.Build.targets = BarrelRoll\Directory.Build.targets
+		BarrelRoll\UnityUtil-Base.props = BarrelRoll\UnityUtil-Base.props
+		BarrelRoll\UnityUtil.props = BarrelRoll\UnityUtil.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarrelRoll", "BarrelRoll\BarrelRoll\BarrelRoll.csproj", "{56003E2E-2FC6-48ED-BFFE-70971CACBAC8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		DebugWithUnityUtil|Any CPU = DebugWithUnityUtil|Any CPU
+		Release|Any CPU = Release|Any CPU
+		ReleaseWithUnityUtil|Any CPU = ReleaseWithUnityUtil|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F340C2C-7CB0-4AC8-AED3-10F88456F4B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F340C2C-7CB0-4AC8-AED3-10F88456F4B4}.DebugWithUnityUtil|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F340C2C-7CB0-4AC8-AED3-10F88456F4B4}.DebugWithUnityUtil|Any CPU.Build.0 = Debug|Any CPU
+		{1F340C2C-7CB0-4AC8-AED3-10F88456F4B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F340C2C-7CB0-4AC8-AED3-10F88456F4B4}.ReleaseWithUnityUtil|Any CPU.ActiveCfg = Release|Any CPU
+		{1F340C2C-7CB0-4AC8-AED3-10F88456F4B4}.ReleaseWithUnityUtil|Any CPU.Build.0 = Release|Any CPU
+		{78BC3B4F-F6FE-4FB0-9D4F-A8180B0D7787}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78BC3B4F-F6FE-4FB0-9D4F-A8180B0D7787}.DebugWithUnityUtil|Any CPU.ActiveCfg = Debug|Any CPU
+		{78BC3B4F-F6FE-4FB0-9D4F-A8180B0D7787}.DebugWithUnityUtil|Any CPU.Build.0 = Debug|Any CPU
+		{78BC3B4F-F6FE-4FB0-9D4F-A8180B0D7787}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78BC3B4F-F6FE-4FB0-9D4F-A8180B0D7787}.ReleaseWithUnityUtil|Any CPU.ActiveCfg = Release|Any CPU
+		{78BC3B4F-F6FE-4FB0-9D4F-A8180B0D7787}.ReleaseWithUnityUtil|Any CPU.Build.0 = Release|Any CPU
+		{36A857AA-3537-4979-A8F8-8CDC52C79C0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A857AA-3537-4979-A8F8-8CDC52C79C0F}.DebugWithUnityUtil|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A857AA-3537-4979-A8F8-8CDC52C79C0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A857AA-3537-4979-A8F8-8CDC52C79C0F}.ReleaseWithUnityUtil|Any CPU.ActiveCfg = Release|Any CPU
+		{447B17AC-EF41-4A6F-AA55-B8C2DA1447A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{447B17AC-EF41-4A6F-AA55-B8C2DA1447A2}.DebugWithUnityUtil|Any CPU.ActiveCfg = Debug|Any CPU
+		{447B17AC-EF41-4A6F-AA55-B8C2DA1447A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{447B17AC-EF41-4A6F-AA55-B8C2DA1447A2}.ReleaseWithUnityUtil|Any CPU.ActiveCfg = Release|Any CPU
+		{56003E2E-2FC6-48ED-BFFE-70971CACBAC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56003E2E-2FC6-48ED-BFFE-70971CACBAC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56003E2E-2FC6-48ED-BFFE-70971CACBAC8}.DebugWithUnityUtil|Any CPU.ActiveCfg = DebugWithUnityUtil|Any CPU
+		{56003E2E-2FC6-48ED-BFFE-70971CACBAC8}.DebugWithUnityUtil|Any CPU.Build.0 = DebugWithUnityUtil|Any CPU
+		{56003E2E-2FC6-48ED-BFFE-70971CACBAC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56003E2E-2FC6-48ED-BFFE-70971CACBAC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56003E2E-2FC6-48ED-BFFE-70971CACBAC8}.ReleaseWithUnityUtil|Any CPU.ActiveCfg = ReleaseWithUnityUtil|Any CPU
+		{56003E2E-2FC6-48ED-BFFE-70971CACBAC8}.ReleaseWithUnityUtil|Any CPU.Build.0 = ReleaseWithUnityUtil|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1F340C2C-7CB0-4AC8-AED3-10F88456F4B4} = {D563550C-F770-4CFA-8643-949FA5FE289D}
+		{78BC3B4F-F6FE-4FB0-9D4F-A8180B0D7787} = {D563550C-F770-4CFA-8643-949FA5FE289D}
+		{671B541C-3402-450F-9338-D049656221A2} = {D563550C-F770-4CFA-8643-949FA5FE289D}
+		{36A857AA-3537-4979-A8F8-8CDC52C79C0F} = {671B541C-3402-450F-9338-D049656221A2}
+		{447B17AC-EF41-4A6F-AA55-B8C2DA1447A2} = {671B541C-3402-450F-9338-D049656221A2}
+		{56003E2E-2FC6-48ED-BFFE-70971CACBAC8} = {BD1324B7-AA34-43AF-90BA-748E0E8E1273}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B341DF2-BB05-48A3-883A-DF7A77663C71}
+	EndGlobalSection
+EndGlobal

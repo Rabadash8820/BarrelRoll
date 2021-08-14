@@ -1,0 +1,14 @@
+<Project>
+
+  <PropertyGroup>
+    <Company>Derploid Entertainment, LLC</Company>
+    <Product>High Hand Hold'em</Product>
+    <Authors>Derploid Entertainment</Authors>
+    <Copyright>© Derploid Entertainment, LLC. All rights reserved.</Copyright>
+    <AssemblyVersion>0.4.0</AssemblyVersion>
+    <RepositoryUrl>https://github.com/DerploidEntertainment/HighHandHoldem.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>https://github.com/DerploidEntertainment/HighHandHoldem-Support/blob/master/CHANGELOG.md</PackageReleaseNotes>
+  </PropertyGroup>
+
+</Project>

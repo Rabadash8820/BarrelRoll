@@ -1,0 +1,11 @@
+<Project>
+
+  <!-- MSBuild stops looking for Directory.Build.* files once it finds one in the folder hierarchy, so we have to manually include "higher" ones -->
+  <Import Project="../Directory.Build.props"/>
+
+  <PropertyGroup>
+    <Optimize Condition="'$(Configuration)'=='Release' Or '$(Configuration)'=='ReleaseWithUnityUtil'">true</Optimize>
+    <Optimize Condition="'$(Configuration)'!='Release' And '$(Configuration)'!='ReleaseWithUnityUtil'">false</Optimize>
+  </PropertyGroup>
+
+</Project>

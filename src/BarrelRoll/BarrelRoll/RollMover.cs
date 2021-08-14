@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics.CodeAnalysis;
+using UnityEngine;
 
-using Danware.Unity.Input;
+using UnityEngine.Inputs;
 
 namespace BarrelRoll {
 
@@ -10,7 +11,7 @@ namespace BarrelRoll {
         private Rigidbody2D _rigidbody;
         private CircleCollider2D _circle;
         private bool _grounded = false;
-        RaycastHit2D[] _groundHits = new RaycastHit2D[2];
+        private readonly RaycastHit2D[] _groundHits = new RaycastHit2D[2];
 
         // INSPECTOR FIELDS
         public StartStopInput JumpInput;
@@ -23,14 +24,19 @@ namespace BarrelRoll {
         public bool JumpAutoOpposesGravity = true;
 
         // EVENT HANDLERS
+        [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Unity message")]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Unity message")]
         private void Awake() {
             _rigidbody = GetComponent<Rigidbody2D>();
             _circle = GetComponent<CircleCollider2D>();
         }
+
+        [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Unity message")]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Unity message")]
         private void Update() {
             // Get player input
-            float roll = RollInput?.Value ?? 0f;
-            bool jump = JumpInput?.Started ?? false;
+            float roll = RollInput?.Value() ?? 0f;
+            bool jump = JumpInput?.Started() ?? false;
 
             // Do the rotation
             Vector2 moveDir = new Vector2(Physics2D.gravity.y, -Physics2D.gravity.x).normalized;
@@ -41,6 +47,9 @@ namespace BarrelRoll {
             if (jump)
                 doJump();
         }
+
+        [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Unity message")]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Unity message")]
         private void FixedUpdate() {
             // Check if this object is grounded
             int numHits = Physics2D.CircleCastNonAlloc(transform.position, _circle.radius, Physics2D.gravity, _groundHits, GroundedOffset);

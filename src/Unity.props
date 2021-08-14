@@ -1,0 +1,16 @@
+<Project>
+
+  <PropertyGroup>
+    <UnityVersion>2021.1.5f1</UnityVersion>
+    <UnityProjectPath>$(SolutionDir)\..\$(SolutionName)</UnityProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Unity3D" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll" Private="false" />
+  </ItemGroup>
+
+</Project>

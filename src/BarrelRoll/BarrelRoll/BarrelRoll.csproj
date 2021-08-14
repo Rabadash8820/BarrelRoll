@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Configurations>Debug;Release;DebugWithUnityUtil;ReleaseWithUnityUtil</Configurations>
+  </PropertyGroup>
+
+  <Import Project="..\..\Unity.props" />
+  <Import Project="..\UnityUtil.props" />
+  <Import Project="..\BarrelRoll.props" />
+
+  <ItemGroup>
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.AnimationModule.dll" Private="false" />
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.AudioModule.dll" Private="false" />
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.InputLegacyModule.dll" Private="false" />
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.Physics2DModule.dll" Private="false" />
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.dll" Private="false" />
+  </ItemGroup>
+
+  <Target Name="CopyOutputs" AfterTargets="AfterBuild">
+    <ItemGroup>
+      <ProjectOutput Include="$(OutDir)/$(SolutionName).dll" />
+      <ProjectOutput Include="$(OutDir)/$(SolutionName).pdb" />
+      <UnityUtilOutput Condition="'$(WithUnityUtil)'=='true'" Include="$(OutDir)/UnityUtil.dll" />
+      <UnityUtilOutput Condition="'$(WithUnityUtil)'=='true'" Include="$(OutDir)/UnityUtil.pdb" />
+    </ItemGroup>
+    <Message Importance="high" Text="Moving $(ProjectName) outputs into appropriate subfolders of '$([System.IO.Path]::GetFullPath($(UnityProjectPath)\Assets))'" />
+    <Copy SourceFiles="%(ProjectOutput.Identity)" DestinationFolder="$(UnityProjectPath)\Assets\$(SolutionName)\logic\Plugins" />
+    <Copy SourceFiles="%(UnityUtilOutput.Identity)" DestinationFolder="$(UnityProjectPath)\Assets\UnityUtil" />
+  </Target>
+
+</Project>

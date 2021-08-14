@@ -1,13 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics.CodeAnalysis;
+using UnityEngine;
 using UnityEngine.Assertions;
 
-using Danware.Unity.Input;
+using UnityEngine.Inputs;
 
 namespace BarrelRoll {
 
     public class GravityTester : MonoBehaviour {
 
-        private static float DIAGONAL = Mathf.Sqrt(2f) / 2f;
+        private static readonly float s_diagonal = Mathf.Sqrt(2f) / 2f;
 
         // INSPECTOR FIELDS
         public WorldRotater WorldRotater;
@@ -26,21 +27,25 @@ namespace BarrelRoll {
         public StartStopInput ZeroGInput;
 
         // EVENT HANDLERS
+        [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Unity message")]
         private void Awake() {
             Assert.IsNotNull(WorldRotater, $"A {nameof(GravityTester)} must be associated with a {nameof(BarrelRoll.WorldRotater)}");
             Assert.IsNotNull(GravityShifter, $"A {nameof(GravityTester)} must be associated with a {nameof(BarrelRoll.GravityShifter)}");
         }
+
+        [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Unity message")]
         private void Update() {
             // Get player input
-            bool inputGiven = (UpLeftInput?.Started ?? false) ||
-                              (UpInput?.Started ?? false) ||
-                              (UpRightInput?.Started ?? false) ||
-                              (LeftInput?.Started ?? false) ||
-                              (RightInput?.Started ?? false) ||
-                              (DownLeftInput?.Started ?? false) ||
-                              (DownInput?.Started ?? false) ||
-                              (DownRightInput?.Started ?? false) ||
-                              (ZeroGInput?.Started ?? false);
+            bool inputGiven =
+                (UpLeftInput?.Started() ?? false) ||
+                (UpInput?.Started() ?? false) ||
+                (UpRightInput?.Started() ?? false) ||
+                (LeftInput?.Started() ?? false) ||
+                (RightInput?.Started() ?? false) ||
+                (DownLeftInput?.Started() ?? false) ||
+                (DownInput?.Started() ?? false) ||
+                (DownRightInput?.Started() ?? false) ||
+                (ZeroGInput?.Started() ?? false);
 
             // If no input was given then just return
             if (!inputGiven)
@@ -55,7 +60,7 @@ namespace BarrelRoll {
         // HELPERS
         private Vector2 newGravity() {
             // Return a zero-vector if gravity has been turned off
-            bool gravityOff = (ZeroGInput?.Started ?? false);
+            bool gravityOff = (ZeroGInput?.Started() ?? false);
             if (gravityOff)
                 return Vector2.zero;
 
@@ -64,25 +69,25 @@ namespace BarrelRoll {
                 return Physics2D.gravity;
 
             // Get the x-component
-            float gx = ((UpLeftInput?.Started ?? false) ? -DIAGONAL : 0) +
-                       ((UpRightInput?.Started ?? false) ? DIAGONAL : 0) +
-                       ((LeftInput?.Started ?? false) ? -1 : 0) +
-                       ((RightInput?.Started ?? false) ? 1 : 0) +
-                       ((DownLeftInput?.Started ?? false) ? -DIAGONAL : 0) +
-                       ((DownRightInput?.Started ?? false) ? DIAGONAL : 0);
+            float gx =
+                ((UpLeftInput?.Started() ?? false) ? -s_diagonal : 0) +
+                ((UpRightInput?.Started() ?? false) ? s_diagonal : 0) +
+                ((LeftInput?.Started() ?? false) ? -1 : 0) +
+                ((RightInput?.Started() ?? false) ? 1 : 0) +
+                ((DownLeftInput?.Started() ?? false) ? -s_diagonal : 0) +
+                ((DownRightInput?.Started() ?? false) ? s_diagonal : 0);
 
             // Get the y-component
-            float gy = ((UpLeftInput?.Started ?? false) ? DIAGONAL : 0) +
-                       ((UpInput?.Started ?? false) ? 1 : 0) +
-                       ((UpRightInput?.Started ?? false) ? DIAGONAL : 0) +
-                       ((DownLeftInput?.Started ?? false) ? -DIAGONAL : 0) +
-                       ((DownInput?.Started ?? false) ? -1 : 0) +
-                       ((DownRightInput?.Started ?? false) ? -DIAGONAL : 0);
+            float gy =
+                ((UpLeftInput?.Started() ?? false) ? s_diagonal : 0) +
+                ((UpInput?.Started() ?? false) ? 1 : 0) +
+                ((UpRightInput?.Started() ?? false) ? s_diagonal : 0) +
+                ((DownLeftInput?.Started() ?? false) ? -s_diagonal : 0) +
+                ((DownInput?.Started() ?? false) ? -1 : 0) +
+                ((DownRightInput?.Started() ?? false) ? -s_diagonal : 0);
 
             // Return the unit vector with these components, in camera space
-            Vector2 localDir = new Vector2(gx, gy);
-            Vector2 worldDir = WorldRotater.MainCamera.transform.TransformDirection(localDir);
-            return Magnitude * worldDir;
+            return Magnitude * WorldRotater.MainCamera.transform.TransformDirection(new Vector2(gx, gy));
         }
     }
 

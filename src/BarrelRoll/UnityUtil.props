@@ -1,0 +1,10 @@
+<Project>
+
+  <Import Condition="'$(WithUnityUtil)'==''" Project=".\UnityUtil-Base.props"/>
+
+  <ItemGroup>
+    <PackageReference Condition="'$(WithUnityUtil)'!='true'" Include="UnityUtil" Version="0.1.0-alpha2" />
+    <ProjectReference Condition="'$(WithUnityUtil)'=='true'" Include="$(SolutionDir)\..\..\UnityUtil\src\UnityUtil\UnityUtil.csproj" />
+  </ItemGroup>
+
+</Project>

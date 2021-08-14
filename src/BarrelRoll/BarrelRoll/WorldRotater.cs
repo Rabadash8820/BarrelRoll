@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Diagnostics.CodeAnalysis;
+using UnityEngine;
 
 namespace BarrelRoll {
 
@@ -13,6 +14,7 @@ namespace BarrelRoll {
         public float Speed = 90f;
 
         // EVENT HANDLERS
+        [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Unity message")]
         private void Awake() {
             Debug.Assert(GravityShifter != null, $"{nameof(WorldRotater)} {name} must be associated with a {nameof(GravityShifter)}!");
 
@@ -23,10 +25,12 @@ namespace BarrelRoll {
                     _targetDir = target;
             };
         }
+
+        [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Unity message")]
         private void Update() {
             // Reset when the target rotation is reached
             Transform trans = MainCamera.transform;
-            Quaternion targetRot = Quaternion.LookRotation(Vector3.forward, _targetDir);
+            var targetRot = Quaternion.LookRotation(Vector3.forward, _targetDir);
             if (trans.rotation == targetRot)
                 _targetDir = Vector2.zero;
 
