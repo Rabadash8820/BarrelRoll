@@ -1,0 +1,45 @@
+#########################
+## Barrel Roll
+#########################
+
+.DS_Store
+*.DS_Store
+
+**/COPY_TARGETS/**
+!**/COPY_TARGETS/DO_NOT_RENAME.dan
+
+
+#########################
+## Unity
+#########################
+
+Library/
+Logs/
+Temp/
+UserSettings/
+
+Assets/BuildReports/
+Assets/BuildReports.meta
+
+BarrelRoll/*.csproj
+BarrelRoll/*.sln
+BarrelRoll/.vsconfig
+
+
+#########################
+## VISUAL STUDIO
+#########################
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Visual Studio generated files
+.vs/
+*.user
+
+# NuGet Packages
+*.nupkg
