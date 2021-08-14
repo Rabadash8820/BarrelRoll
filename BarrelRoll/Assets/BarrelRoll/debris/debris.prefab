@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6148146}
   - component: {fileID: 5089874}
   m_Layer: 0
-  m_Name: Block
+  m_Name: debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
