@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
-
+using UnityEngine.Events;
 using UnityEngine.Inputs;
 
 namespace BarrelRoll {
@@ -22,6 +22,8 @@ namespace BarrelRoll {
         public float JumpForce = 5f;
         public float GroundedOffset = 0.3f;
         public bool JumpAutoOpposesGravity = true;
+
+        public UnityEvent Jumping = new();
 
         // EVENT HANDLERS
         [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Unity message")]
@@ -71,6 +73,8 @@ namespace BarrelRoll {
             float g = Physics2D.gravity.magnitude;
             Vector2 jumpDir = -Physics2D.gravity / g;
             _rigidbody.AddForce(JumpForce * jumpDir, ForceMode2D.Impulse);
+
+            Jumping.Invoke();
         }
     }
 

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 5007528}
   - component: {fileID: 5882038}
   - component: {fileID: 11444146}
+  - component: {fileID: 8970621579634784601}
+  - component: {fileID: 2682124577217895515}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -143,3 +145,55 @@ MonoBehaviour:
   JumpForce: 5
   GroundedOffset: 0.3
   JumpAutoOpposesGravity: 1
+  Jumping:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8970621579634784601}
+        m_TargetAssemblyTypeName: UnityEngine.Detonator2D, UnityUtil
+        m_MethodName: Detonate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8970621579634784601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1994007168, guid: 2266ed06c65d061458131aa3f870137c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExplosionRadius: 4
+  AffectLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  Detonating:
+    m_PersistentCalls:
+      m_Calls: []
+  Detonated:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2682124577217895515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1928501986, guid: 2266ed06c65d061458131aa3f870137c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ExplosionForce: 10
+  ExplosionUpwardsModifier: 2
+  SafeRigidbody: {fileID: 5007528}
