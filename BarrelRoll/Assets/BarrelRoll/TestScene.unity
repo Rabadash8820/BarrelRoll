@@ -408,6 +408,49 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &521673969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 521673970}
+  - component: {fileID: 521673971}
+  m_Layer: 0
+  m_Name: service-updater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &521673970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521673969}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1255204203}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &521673971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 521673969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 163647980, guid: 2266ed06c65d061458131aa3f870137c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &589009457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -597,6 +640,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 703859737}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &823969916
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 823969918}
+  - component: {fileID: 823969917}
+  m_Layer: 0
+  m_Name: service-loggerProvider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &823969917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823969916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1135832947, guid: 2266ed06c65d061458131aa3f870137c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ConfigKey: UnityEngine.Logging.DebugLoggerProvider
+  EnrichedLogSeparator: ' | '
+  LogEnrichers: []
+--- !u!4 &823969918
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 823969916}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1255204203}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &862014662
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,6 +907,77 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1370683380839532767}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1255204200
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1255204203}
+  - component: {fileID: 1255204202}
+  - component: {fileID: 1255204201}
+  m_Layer: 0
+  m_Name: services
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1255204201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255204200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 611931399, guid: 2266ed06c65d061458131aa3f870137c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Services:
+  - Instance: {fileID: 823969917}
+    TypeName: UnityEngine.Logging.ILoggerProvider, UnityUtil
+  - Instance: {fileID: 521673971}
+    TypeName: UnityEngine.IUpdater, UnityUtil
+--- !u!114 &1255204202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255204200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1695839536, guid: 4dd92d9ede82b5741aec9f98e8e366af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BootLoggerProvider: {fileID: 823969917}
+  RuntimeLoggerProvider: {fileID: 823969917}
+  ConfigurationSourceCollection: {fileID: 11400000, guid: 1d3a428dca2865b4a84833b57daf0072,
+    type: 2}
+  RecordingConfigurations: 0
+  ConfigLoadingComplete:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!4 &1255204203
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1255204200}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 823969918}
+  - {fileID: 521673970}
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1306793463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1108,6 +1268,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1512432178294704075, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Enabled.m_PersistentCalls.m_Calls.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512432178294704075, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Enabled.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512432178294704075, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Enabled.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 862014663}
+    - target: {fileID: 1512432178294704075, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Enabled.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512432178294704075, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Enabled.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: CommitNewGravity
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512432178294704075, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Enabled.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
+      value: BarrelRoll.GravityTester, BarrelRoll
+      objectReference: {fileID: 0}
+    - target: {fileID: 1512432178294704075, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Enabled.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 5671999482234129338, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
         type: 3}
       propertyPath: _triggers.Array.data[0].Trigger.m_PersistentCalls.m_Calls.Array.size
@@ -1278,8 +1473,59 @@ PrefabInstance:
       propertyPath: _triggers.Array.data[1].Trigger.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8990714686664451871, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Timeout.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8990714686664451871, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Timeout.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8990714686664451871, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Timeout.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8990714686664451871, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Timeout.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1745422270}
+    - target: {fileID: 8990714686664451871, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Timeout.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8990714686664451871, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Timeout.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8990714686664451871, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Timeout.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndGravityEffects
+      objectReference: {fileID: 0}
+    - target: {fileID: 8990714686664451871, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Timeout.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: BarrelRoll.GravityShifter, BarrelRoll
+      objectReference: {fileID: 0}
+    - target: {fileID: 8990714686664451871, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+        type: 3}
+      propertyPath: Timeout.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0, type: 3}
+--- !u!1 &1540441623 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1160934805702590956, guid: e2d742bc47d43af4b9e4cdf3ba6a91a0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1540441622}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1644916135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1557,6 +1803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GravityShiftEffects: {fileID: 1138222880}
+  ZeroGravityEffects: {fileID: 1540441623}
 --- !u!4 &1745422272
 Transform:
   m_ObjectHideFlags: 0

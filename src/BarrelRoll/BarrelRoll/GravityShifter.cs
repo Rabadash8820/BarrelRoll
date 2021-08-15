@@ -16,8 +16,11 @@ namespace BarrelRoll {
         private Vector2 _oldG;
 
         // INSPECTOR FIELDS
-        [Tooltip("This GameObject will be activated every time the gravity shifts, allowing for custom particle effects/animations.  This GameObject should have a child Animator/AnimationEventDetector component pair that raises AnimationEvents named 'GravityShifted' and 'EffectsCompleted.")]
+        [Tooltip("This GameObject will be activated every time the gravity shifts, allowing for custom particle effects/animations.")]
         public GameObject GravityShiftEffects;
+
+        [Tooltip("This GameObject will be activated every time gravity is set to zero, allowing for custom particle effects/animations.")]
+        public GameObject ZeroGravityEffects;
 
         public event EventHandler Shifted;
 
@@ -25,14 +28,21 @@ namespace BarrelRoll {
             _oldG = Physics2D.gravity;
 
             // Start the gravity shift effects, with a rotation to match the new gravity direction
-            if (GravityShiftEffects != null) {
+            if (newGravity != Vector2.zero && GravityShiftEffects != null) {
                 var rot = Quaternion.LookRotation(forward: Vector3.forward, upwards: newGravity);
                 GravityShiftEffects.transform.rotation = rot;
                 GravityShiftEffects.SetActive(true);
             }
+            else if (newGravity == Vector2.zero && ZeroGravityEffects) {
+                ZeroGravityEffects.SetActive(true);
+            }
         }
 
-        public void EndGravityEffects() => GravityShiftEffects.SetActive(false);
+        public void EndGravityEffects()
+        {
+            GravityShiftEffects.SetActive(false);
+            ZeroGravityEffects.SetActive(false);
+        }
 
         public void SetGravity(Vector2 newGravity) {
             // Adjust gravity, if necessary
