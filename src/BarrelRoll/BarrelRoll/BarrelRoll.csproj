@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <Configurations>Debug;Release;DebugWithUnityUtil;ReleaseWithUnityUtil</Configurations>
@@ -8,13 +8,20 @@
   <Import Project="..\UnityUtil.props" />
   <Import Project="..\BarrelRoll.props" />
 
+  <PropertyGroup>
+    <SirenixAssembliesDir>$(UnityProjectPath)\Assets\Plugins\Sirenix\Assemblies</SirenixAssembliesDir>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.AnimationModule.dll" Private="false" />
     <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.AudioModule.dll" Private="false" />
     <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.CoreModule.dll" Private="false" />
     <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.InputLegacyModule.dll" Private="false" />
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.ParticleSystemModule.dll" Private="false" />
     <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.Physics2DModule.dll" Private="false" />
     <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.dll" Private="false" />
+    
+    <Reference Include="$(SirenixAssembliesDir)\Sirenix.OdinInspector.Attributes.dll" Private="false" />
   </ItemGroup>
 
   <Target Name="CopyOutputs" AfterTargets="AfterBuild">

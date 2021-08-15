@@ -3,30 +3,31 @@ using UnityEngine;
 
 namespace BarrelRoll {
 
-    public class WorldRotater : MonoBehaviour {
-        // HIDDEN FIELDS
+    public class WorldRotater : MonoBehaviour
+    {
         private Vector2 _targetDir = Vector2.zero;
 
-        // INSPECTOR FIELDS
         public Transform MainCamera;
         public GravityShifter GravityShifter;
         [Tooltip("Camera will rotate smoothly at this angular speed (degrees/second).")]
-        public float Speed = 90f;
+        public float Speed = 180f;
 
         // EVENT HANDLERS
         [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Unity message")]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Unity message")]
         private void Awake() {
-            Debug.Assert(GravityShifter != null, $"{nameof(WorldRotater)} {name} must be associated with a {nameof(GravityShifter)}!");
+            this.AssertAssociation(GravityShifter, nameof(GravityShifter));
 
             // Rotate towards the opposite direction of gravity, when that direction changes
             GravityShifter.Shifted += (sender, e) => {
-                Vector2 target = -e.NewVector;
+                Vector2 target = -Physics2D.gravity;
                 if (MainCamera != null && target != Vector2.zero)
                     _targetDir = target;
             };
         }
 
         [SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Unity message")]
+        [SuppressMessage("CodeQuality", "IDE0051:Remove unused private members", Justification = "Unity message")]
         private void Update() {
             // Reset when the target rotation is reached
             Transform trans = MainCamera.transform;

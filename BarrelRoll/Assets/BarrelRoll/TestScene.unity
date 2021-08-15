@@ -985,7 +985,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 1514357653}
   GravityShifter: {fileID: 1745422270}
-  Speed: 90
+  Speed: 180
 --- !u!1001 &1540441622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1319,8 +1319,7 @@ MonoBehaviour:
   m_Script: {fileID: -1196094049, guid: 4dd92d9ede82b5741aec9f98e8e366af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AnimationEventTrigger: {fileID: 0}
-  GravityShiftEffects: {fileID: 0}
+  GravityShiftEffects: {fileID: 1138222880}
 --- !u!4 &1745422272
 Transform:
   m_ObjectHideFlags: 0
